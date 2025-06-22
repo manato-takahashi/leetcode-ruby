@@ -1,0 +1,30 @@
+{
+  "name": "Ruby LeetCode Environment", // 開発環境の名前、VS CodeのRemote Explorerなどで表示されます
+  "build": {
+    "dockerfile": "../Dockerfile", // 使用するDockerfileのパス
+    "context": "../" // Dockerfileがあるディレクトリのパス
+  },
+  "forwardPorts": [], // 必要であればポートフォワードを設定（LeetCodeではあまり使わないかも）
+  "customizations": {
+    "vscode": {
+      "settings": {
+        // VS Codeのワークスペース設定
+        "terminal.integrated.defaultProfile.linux": "bash", // Linux環境のデフォルトシェルをbashに設定
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash"
+          }
+        },
+        "files.autoSave": "afterDelay" // ファイルの自動保存を有効にする
+      },
+      "extensions": [
+        "rebornix.ruby", // Ruby開発の基本となる公式拡張機能
+        "castwide.ruby-debug", // Rubyデバッグ用の拡張機能
+        "koichiharada.vscode-rdbg", // Rubyの標準デバッガRDBGをVS Codeから利用するための拡張機能
+        "shopify.ruby-lsp" // Ruby LSP (Language Server Protocol) を利用
+      ]
+    }
+  },
+  "postCreateCommand": "gem install bundler && bundle install", // コンテナ作成後に実行するコマンド
+  "remoteUser": "vscode" // コンテナ内で使用するユーザー。セキュリティのためroot以外が推奨されます
+}
